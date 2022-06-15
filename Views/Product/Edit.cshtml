@@ -1,0 +1,59 @@
+﻿@model Mercado.Models.Product
+@{
+    ViewData["Title"] = "Editar Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container form-config">
+
+    <h4>@ViewData["Title"]</h4>
+    <hr />
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-floating">
+            <input id="floatingInput" asp-for="Name" class="form-control" placeholder="Name" />
+            <label for="floatingInput" asp-for="Name"></label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-floating">
+            <input id="floatingInput" asp-for="Quantity" class="form-control" placeholder="Quantity" />
+            <label for="floatingInput" asp-for="Quantity"></label>
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+        <div class="form-floating">
+            <input id="floatingInput" asp-for="Price" class="form-control" placeholder="Price" />
+            <label for="floatingInput" asp-for="Price"></label>
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-floating">
+            <select id="floatingInput" asp-for="ProviderId" aria-label="Floating label select example" class ="form-select">
+                @foreach (var item in ViewData["Provider"] as List<Mercado.Models.Provider>)
+            {
+                if (item == Model.Fornecedor)
+                {
+                        <option selected value="@item.Id">@item.Company</option> 
+                    }else{
+                        <option value="@item.Id">@item.Company</option>
+                    }
+            }
+            </select>
+            <label for="floatingInput" asp-for="ProviderId"></label>
+            <span asp-validation-for="ProviderId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button class="custom-btn" type="submit">Atualizar</button>
+        </div>
+    </form>
+
+    <div>
+        <a class="back-list" asp-action="Index">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12 20.1 3.9 12 12 3.9 13.625 5.5 8.275 10.85H20.1V13.15H8.275L13.625 18.5Z"/></svg>
+            Voltar para lista
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
